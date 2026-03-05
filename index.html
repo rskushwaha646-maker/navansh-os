@@ -1,0 +1,503 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Navansh OS</title>
+
+<style>
+
+body{
+margin:0;
+background:url("https://wallpaperaccess.com/full/317501.jpg");
+background-size:cover;
+font-family:Segoe UI;
+overflow:hidden;
+color:white;
+}
+
+/* Windows logo */
+
+#windowsLogo{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:200px;
+opacity:0.15;
+display:none;
+pointer-events:none;
+}
+
+/* Desktop */
+
+.desktop{
+padding:20px;
+display:flex;
+flex-direction:column;
+width:100px;
+}
+
+.icon{
+width:80px;
+text-align:center;
+cursor:pointer;
+margin-bottom:20px;
+}
+
+.icon img{
+width:48px;
+}
+
+/* Taskbar */
+
+.taskbar{
+position:fixed;
+bottom:0;
+width:100%;
+height:55px;
+background:rgba(40,40,40,0.85);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.taskbar img{
+width:30px;
+margin:0 10px;
+cursor:pointer;
+}
+
+.clock{
+position:absolute;
+right:20px;
+font-size:14px;
+}
+
+/* Window */
+
+.window{
+position:absolute;
+top:150px;
+left:350px;
+width:700px;
+height:450px;
+background:white;
+color:black;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+display:none;
+overflow:hidden;
+}
+
+/* Titlebar */
+
+.titlebar{
+background:#0078d7;
+color:white;
+padding:8px 10px;
+cursor:move;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* Buttons */
+
+.window-buttons{
+display:flex;
+}
+
+.window-buttons button{
+width:46px;
+height:30px;
+border:none;
+background:transparent;
+color:white;
+font-size:14px;
+cursor:pointer;
+}
+
+.window-buttons button:hover{
+background:rgba(255,255,255,0.2);
+}
+
+.window-buttons button:last-child:hover{
+background:#e81123;
+}
+
+/* Start Menu */
+
+.startmenu{
+position:fixed;
+bottom:65px;
+left:50%;
+transform:translateX(-50%);
+width:300px;
+height:350px;
+background:rgba(255,255,255,0.95);
+color:black;
+border-radius:10px;
+display:none;
+padding:20px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+/* Right click */
+
+.contextmenu{
+position:absolute;
+background:white;
+color:black;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.4);
+display:none;
+width:200px;
+}
+
+.contextmenu div{
+padding:10px;
+cursor:pointer;
+}
+
+.contextmenu div:hover{
+background:#eee;
+}
+
+textarea{
+width:100%;
+height:90%;
+border:none;
+font-size:16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<img id="windowsLogo" src="https://img.icons8.com/fluency/200/windows-11.png">
+
+<div class="desktop">
+
+<div class="icon" onclick="openWindow('chrome')">
+<img src="https://img.icons8.com/color/96/chrome.png">
+<div>Chrome</div>
+</div>
+
+<div class="icon" onclick="openWindow('notepad')">
+<img src="https://img.icons8.com/color/96/notepad.png">
+<div>Notepad</div>
+</div>
+
+<div class="icon" onclick="openWindow('files')">
+<img src="https://img.icons8.com/color/96/folder-invoices.png">
+<div>Files</div>
+</div>
+
+<div class="icon" onclick="openWindow('about')">
+<img src="https://img.icons8.com/color/96/user.png">
+<div>About Developer</div>
+</div>
+
+</div>
+
+<!-- Start Menu -->
+
+<div class="startmenu" id="startmenu">
+
+<h3>Navansh OS</h3>
+
+<button onclick="openWindow('chrome')">Chrome</button><br>
+<button onclick="openWindow('notepad')">Notepad</button><br>
+<button onclick="openWindow('files')">File Explorer</button><br>
+<button onclick="openWindow('about')">About Developer</button>
+
+</div>
+
+<!-- Chrome -->
+
+<div class="window" id="chrome">
+
+<div class="titlebar">
+
+<span>Chrome</span>
+
+<div class="window-buttons">
+<button onclick="minimizeWindow('chrome')">—</button>
+<button onclick="maximizeWindow('chrome')">□</button>
+<button onclick="closeWindow('chrome')">✕</button>
+</div>
+
+</div>
+
+<div style="padding:10px">
+
+<input id="urlbar" placeholder="Search or type URL"
+style="width:80%;padding:8px;font-size:16px">
+
+<button onclick="go()">Go</button>
+
+<iframe id="browser"
+style="width:100%;height:360px;border:none;margin-top:10px;"></iframe>
+
+</div>
+
+</div>
+
+<!-- Notepad -->
+
+<div class="window" id="notepad">
+
+<div class="titlebar">
+
+<span>Notepad</span>
+
+<div class="window-buttons">
+<button onclick="minimizeWindow('notepad')">—</button>
+<button onclick="maximizeWindow('notepad')">□</button>
+<button onclick="closeWindow('notepad')">✕</button>
+</div>
+
+</div>
+
+<textarea></textarea>
+
+</div>
+
+<!-- File Explorer -->
+
+<div class="window" id="files">
+
+<div class="titlebar">
+
+<span>File Explorer</span>
+
+<div class="window-buttons">
+<button onclick="minimizeWindow('files')">—</button>
+<button onclick="maximizeWindow('files')">□</button>
+<button onclick="closeWindow('files')">✕</button>
+</div>
+
+</div>
+
+<div style="padding:20px">
+
+<ul>
+<li>Documents</li>
+<li>Pictures</li>
+<li>Projects</li>
+<li>Downloads</li>
+</ul>
+
+</div>
+
+</div>
+
+<!-- About Developer -->
+
+<div class="window" id="about">
+
+<div class="titlebar">
+
+<span>About Developer</span>
+
+<div class="window-buttons">
+<button onclick="minimizeWindow('about')">—</button>
+<button onclick="maximizeWindow('about')">□</button>
+<button onclick="closeWindow('about')">✕</button>
+</div>
+
+</div>
+
+<div style="padding:20px">
+
+<h2>Navansh OS</h2>
+
+<p><b>Developer:</b> Navansh Singh Kushwaha</p>
+
+<p>This is a web based operating system simulator inspired by
+the design of <b>Windows 11</b>.</p>
+
+<p>Built using HTML, CSS and JavaScript.</p>
+
+<p>This project demonstrates how a desktop operating system
+interface can run inside a web browser just for educational purpose .</p>
+
+</div>
+
+</div>
+
+<!-- Right Click Menu -->
+
+<div class="contextmenu" id="menu">
+
+<div onclick="setWallpaper(1)">Wallpaper 1</div>
+<div onclick="setWallpaper(2)">Wallpaper 2</div>
+<div onclick="setWallpaper(3)">Wallpaper 3</div>
+
+</div>
+
+<!-- Taskbar -->
+
+<div class="taskbar">
+
+<img src="https://img.icons8.com/fluency/48/windows-11.png" onclick="toggleStart()">
+
+<img src="https://img.icons8.com/color/48/chrome.png" onclick="openWindow('chrome')">
+
+<img src="https://img.icons8.com/color/48/notepad.png" onclick="openWindow('notepad')">
+
+<img src="https://img.icons8.com/color/48/folder-invoices.png" onclick="openWindow('files')">
+
+<div class="clock" id="clock"></div>
+
+</div>
+
+<script>
+
+function openWindow(id){
+document.getElementById(id).style.display="block";
+}
+
+function closeWindow(id){
+document.getElementById(id).style.display="none";
+}
+
+function minimizeWindow(id){
+document.getElementById(id).style.display="none";
+}
+
+function maximizeWindow(id){
+
+let win=document.getElementById(id)
+
+if(win.classList.contains("max")){
+win.style.top="150px"
+win.style.left="350px"
+win.style.width="700px"
+win.style.height="450px"
+win.classList.remove("max")
+}
+else{
+win.style.top="0"
+win.style.left="0"
+win.style.width="100%"
+win.style.height="95%"
+win.classList.add("max")
+}
+
+}
+
+function toggleStart(){
+let menu=document.getElementById("startmenu")
+menu.style.display=(menu.style.display=="block")?"none":"block"
+}
+
+/* Browser */
+
+function go(){
+
+let url=document.getElementById("urlbar").value
+
+if(!url.startsWith("http")){
+url="https://"+url
+}
+
+document.getElementById("browser").src=url
+
+}
+
+/* Clock */
+
+function updateClock(){
+let now=new Date()
+document.getElementById("clock").innerText=
+now.toLocaleTimeString()
+}
+
+setInterval(updateClock,1000)
+
+/* Right click */
+
+document.addEventListener("contextmenu",function(e){
+
+e.preventDefault()
+
+let menu=document.getElementById("menu")
+
+menu.style.display="block"
+menu.style.left=e.pageX+"px"
+menu.style.top=e.pageY+"px"
+
+})
+
+document.addEventListener("click",function(){
+document.getElementById("menu").style.display="none"
+})
+
+/* Wallpapers */
+
+function setWallpaper(num){
+
+let logo=document.getElementById("windowsLogo")
+
+if(num==1){
+document.body.style.background="url('https://wallpaperaccess.com/full/317501.jpg')";
+logo.style.display="none"
+}
+
+if(num==2){
+document.body.style.background="url('https://wallpaperaccess.com/full/1571676.jpg')";
+logo.style.display="block"
+}
+
+if(num==3){
+document.body.style.background="url('https://wallpaperaccess.com/full/5651982.jpg')";
+logo.style.display="none"
+}
+
+document.body.style.backgroundSize="cover"
+
+}
+
+/* Drag windows */
+
+document.querySelectorAll(".window").forEach(win=>{
+
+let title=win.querySelector(".titlebar")
+
+title.onmousedown=function(e){
+
+let shiftX=e.clientX-win.getBoundingClientRect().left
+let shiftY=e.clientY-win.getBoundingClientRect().top
+
+function moveAt(pageX,pageY){
+win.style.left=pageX-shiftX+'px'
+win.style.top=pageY-shiftY+'px'
+}
+
+function onMouseMove(e){
+moveAt(e.pageX,e.pageY)
+}
+
+document.addEventListener('mousemove',onMouseMove)
+
+document.onmouseup=function(){
+document.removeEventListener('mousemove',onMouseMove)
+document.onmouseup=null
+}
+
+}
+
+title.ondragstart=function(){
+return false
+}
+
+})
+
+</script>
+
+</body>
+</html>
+```
